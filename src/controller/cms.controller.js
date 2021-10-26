@@ -304,8 +304,8 @@ module.exports = {
   },
   deleteSubCategory: async (req, res) => {
     try {
-      const name = req.body.name;
-      const response = await SubCategory.deleteOne({ name: name });
+      const { name } = req.body;
+      const response = await SubCategory.deleteMany({ name: name });
       if (response.deletedCount > 0) {
         OkResponse(res, response, "deleted successfully");
       } else {
