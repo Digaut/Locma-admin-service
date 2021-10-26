@@ -305,10 +305,12 @@ module.exports = {
   deleteSubCategory: async (req, res) => {
     try {
       const { name } = req.body;
+      console.log(req.body);
       const response = await SubCategory.deleteMany({ name: name });
       if (response.deletedCount > 0) {
         OkResponse(res, response, "deleted successfully");
       } else {
+        crossOriginIsolated.log(response);
         BadRequestResponse(res, response, "subCategory could not deleted");
       }
     } catch (error) {
