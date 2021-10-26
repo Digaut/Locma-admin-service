@@ -28,8 +28,8 @@ router.get("/category/all", getCategories);
 router.get("/subcategory/getAll", getAllSubCategory);
 router.patch("/category/update", updateCategory);
 router.patch("/subcategory/update", updateSubCategory);
-router.delete("/category/delete", deleteCategory);
-router.delete("/subcategory/delete", deleteSubCategory);
+router.post("/category/delete", deleteCategory);
+router.post("/subcategory/delete", deleteSubCategory);
 
 const cmsRouter = router;
 module.exports = cmsRouter;
