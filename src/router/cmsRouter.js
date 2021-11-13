@@ -13,6 +13,7 @@ const {
   deleteSubCategory,
 } = require("../controller/cms.controller");
 const homeController = require("../controller/cms.controller");
+const { getBySubCategory } = require("../controller/subcategory.controller");
 
 const { CategoryValidator } = require("../middleware/velidator");
 router.post("/home", homeController.create);
@@ -26,6 +27,7 @@ router.post("/subcategory/create", createSubCategory);
 router.post("/subcategory/getByCategory", getBySubCategoryCategory);
 router.get("/category/all", getCategories);
 router.get("/subcategory/getAll", getAllSubCategory);
+router.post("/subcategory/getBySubCategory", getBySubCategory);
 router.patch("/category/update", updateCategory);
 router.patch("/subcategory/update", updateSubCategory);
 router.post("/category/delete", deleteCategory);
