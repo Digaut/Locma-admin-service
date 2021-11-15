@@ -13,11 +13,12 @@ const {
   ForbiddenResponse,
   ServerErrorResponse,
   ServiceUnavilableResponse,
+  FailedResponse,
 } = require("../helper/response");
 const Category = require("../model/Category");
 const SubCategory = require("../model/SubCategory");
 const e = require("express");
-const { FailedResponse } = require("../../../User/src/helper/response");
+
 const ActiveCities = require("../model/activeCities");
 
 module.exports = {

@@ -23,6 +23,14 @@ module.exports = {
       message,
     });
   },
+  FailedResponse: (res, data, message = "data not found") => {
+    res.status(200).json({
+      status: false,
+      code: 200,
+      response_body: data,
+      message,
+    });
+  },
   UnauthorizedResponse: (res, err, message = "Unauthorized User") => {
     res.status(401).json({
       status: false,
