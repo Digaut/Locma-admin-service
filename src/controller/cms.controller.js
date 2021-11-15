@@ -17,6 +17,8 @@ const {
 const Category = require("../model/Category");
 const SubCategory = require("../model/SubCategory");
 const e = require("express");
+const { FailedResponse } = require("../../../User/src/helper/response");
+const ActiveCities = require("../model/activeCities");
 
 module.exports = {
   create: async (req, res) => {
@@ -312,6 +314,26 @@ module.exports = {
       } else {
         crossOriginIsolated.log(response);
         BadRequestResponse(res, response, "subCategory could not deleted");
+      }
+    } catch (error) {
+      /* handle error */
+      console.log(error);
+      return ServerErrorResponse(res, error);
+    }
+  },
+  searchCity: async (req, res) => {
+    try {
+      const { key } = req.body;
+      const response = await ActiveCities.find(
+        {
+          city: { $regex: key },
+        },
+        { _id: 0 }
+      ).select("city");
+      if (response) {
+        OkResponse(res, response, "city found");
+      } else {
+        FailedResponse(res, response, "city not found");
       }
     } catch (error) {
       /* handle error */

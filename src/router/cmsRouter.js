@@ -1,4 +1,11 @@
 const router = require("express").Router();
+const {
+  createCity,
+  getCity,
+  updateCity,
+  deleteCity,
+  addPinCode,
+} = require("../controller/activeCity.controller");
 const adminController = require("../controller/admin.controller");
 
 const {
@@ -11,6 +18,7 @@ const {
   deleteCategory,
   updateSubCategory,
   deleteSubCategory,
+  searchCity,
 } = require("../controller/cms.controller");
 const homeController = require("../controller/cms.controller");
 const { getBySubCategory } = require("../controller/subcategory.controller");
@@ -32,6 +40,13 @@ router.patch("/category/update", updateCategory);
 router.patch("/subcategory/update", updateSubCategory);
 router.post("/category/delete", deleteCategory);
 router.post("/subcategory/delete", deleteSubCategory);
+router.post("/create/activeCity", createCity);
+router.get("/get/activeCity", getCity);
+router.get("/get/activeCity", getCity);
+router.patch("/update/activeCity", updateCity);
+router.post("/delete/activeCity", deleteCity);
+router.patch("/add/newPinCode", addPinCode);
+router.post("/searchCity", searchCity);
 
 const cmsRouter = router;
 module.exports = cmsRouter;

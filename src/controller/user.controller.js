@@ -5,6 +5,8 @@ const {
 } = require("../helper/response");
 const Category = require("../model/Category");
 const SubCategory = require("../model/SubCategory");
+const ActiveCities = require("../model/activeCities");
+const { FailedResponse } = require("../../../User/src/helper/response");
 
 module.exports = {
   getCategoriesUser: async (req, res) => {
@@ -37,6 +39,20 @@ module.exports = {
         { rate: 0 }
       );
       return OkResponse(res, subcategories);
+    } catch (error) {
+      /* handle error */
+      console.log(error);
+      return ServerErrorResponse(res, error);
+    }
+  },
+  getActiveCityForUser: async (req, res) => {
+    try {
+      const response = await ActiveCities.find({});
+      if (response.status) {
+        OkResponse(res, response, "data found");
+      } else {
+        FailedResponse(res, response, "data not found");
+      }
     } catch (error) {
       /* handle error */
       console.log(error);
