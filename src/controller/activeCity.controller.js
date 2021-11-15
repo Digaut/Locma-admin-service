@@ -14,7 +14,7 @@ module.exports = {
       const response = await new ActiveCities({
         city: city,
         status: status,
-        coOrdinate: {
+        coordinate: {
           longitude: longitude,
           latitude: latitude,
         },
@@ -51,14 +51,14 @@ module.exports = {
   },
   updateCity: async (req, res) => {
     try {
-      const { city, status, description, coOrdinate } = req.body;
+      const { city, status, description, coordinate } = req.body;
       const response = await ActiveCities.updateOne(
         { city: city },
         {
           city: city,
           status: status,
           description: description,
-          coOrdinate: coOrdinate,
+          coordinate: coordinate,
         }
       );
       if (response.modifiedCount > 0) {

@@ -7,7 +7,7 @@ const activeCities = mongoose.Schema({
   status: {
     type: Boolean,
   },
-  coOrdinate: {
+  coordinate: {
     longitude: {
       type: Number,
     },
