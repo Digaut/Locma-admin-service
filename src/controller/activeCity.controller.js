@@ -1,5 +1,8 @@
-const { FailedResponse } = require("../../../User/src/helper/response");
-const { ServerErrorResponse, OkResponse } = require("../helper/response");
+const {
+  ServerErrorResponse,
+  OkResponse,
+  FailedResponse,
+} = require("../helper/response");
 const ActiveCities = require("../model/activeCities");
 module.exports = {
   createCity: async (req, res) => {
