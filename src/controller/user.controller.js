@@ -2,11 +2,11 @@ const {
   NotFoundResponse,
   OkResponse,
   ServerErrorResponse,
+  FailedResponse,
 } = require("../helper/response");
 const Category = require("../model/Category");
 const SubCategory = require("../model/SubCategory");
 const ActiveCities = require("../model/activeCities");
-const { FailedResponse } = require("../../../User/src/helper/response");
 
 module.exports = {
   getCategoriesUser: async (req, res) => {
