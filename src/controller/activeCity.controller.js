@@ -9,10 +9,11 @@ module.exports = {
     try {
       const { city, status, longitude, latitude, description, pinCode } =
         req.body;
+      let newCity = city.toLowerCase();
       console.log(req.body);
 
       const response = await new ActiveCities({
-        city: city,
+        city: newCity,
         status: status,
         coordinate: {
           longitude: longitude,

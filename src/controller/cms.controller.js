@@ -325,9 +325,10 @@ module.exports = {
   searchCity: async (req, res) => {
     try {
       const { key } = req.body;
+      let newKey = key.toLowerCase();
       const response = await ActiveCities.find(
         {
-          city: { $regex: key },
+          city: { $regex: newKey },
         },
         { _id: 0 }
       ).select("city");
