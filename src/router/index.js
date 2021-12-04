@@ -5,6 +5,7 @@ const { CategoryValidator } = require("../middleware/velidator");
 const cmsRouter = require("./cmsRouter");
 const { OkResponse } = require("../helper/response");
 const userRouter = require("./userRouter");
+const adminRouter = require("./adminRouter");
 const router = require("express").Router();
 
 // router.post("/admin/login", admin.login);
@@ -26,5 +27,6 @@ const router = require("express").Router();
 router.use("/admin/user", userRouter);
 
 router.use("/admin/cms", cmsRouter);
+router.use("/admin", adminRouter);
 
 module.exports = router;

@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const { default: axios } = require("axios");
+const secretkey = process.env.SECRET_KEY || "secretkey";
 
 const Admin = require("../model/admin");
 const {
@@ -13,29 +15,57 @@ const {
   ForbiddenResponse,
   ServerErrorResponse,
   ServiceUnavilableResponse,
+  FailedResponse,
 } = require("../helper/response");
 
 module.exports = {
   create: async (req, res) => {
     try {
-      var { name, username, email, mobileNo, password } = req.body;
-
-      var admin = new Admin({
+      var {
         name,
+        username,
+        address,
         email,
         mobileNo,
         password,
-        username,
-      });
-      var salt = process.env.SALT || 10;
-      bcrypt.genSalt(salt, (err, salt) => {
-        if (err) return ServerErrorResponse(res, err, MESSAGE);
-        bcrypt.hash(admin.password, salt, async (err, hash) => {
-          if (err) return ServerErrorResponse(res, err, MESSAGE);
-          admin.password = hash;
-          var response = await admin.save();
-          return CreatedResponse(res, response);
-        });
+        city,
+        state,
+        pincode,
+      } = req.body;
+      bcrypt.genSalt(10, (err, salt) => {
+        if (err) {
+          FailedResponse(res, err, "salt could not generated");
+        }
+        if (salt) {
+          bcrypt.hash(password, salt, (err, hash) => {
+            if (err) {
+              FailedResponse(res, err, "password could not encrypted");
+            }
+            if (hash) {
+              var admin = new Admin({
+                name,
+                email,
+                mobileNo,
+                password: hash,
+                username: email,
+                city,
+                state,
+                pincode,
+                address,
+              });
+              console.log(admin);
+
+              admin.save((err, result) => {
+                if (err) {
+                  FailedResponse(res, err, "something went wrong");
+                }
+                if (result) {
+                  OkResponse(res, result, "Admin created successfully");
+                }
+              });
+            }
+          });
+        }
       });
     } catch (err) {
       /* handle error */
@@ -43,53 +73,144 @@ module.exports = {
       return ServerErrorResponse(res, err);
     }
   },
-  login: async (req, res) => {
+  getAdmin: async (req, res) => {
     try {
-      const { username, password, rememberMe } = req.body;
-      const admin = await Admin.findOne({
-        $or: [{ username: username }, { email: username }],
-      });
-      if (!admin) {
-        return UnauthorizedResponse(res, null, "username or password is wrong");
+      const { email } = req.body;
+      const response = await Admin.find({ email });
+      if (response) {
+        OkResponse(res, response, "admin get successfully");
+      } else {
+        FailedResponse(res, response, "user");
       }
-      bcrypt.compare(password, admin.password, (err, result) => {
-        if (err || !result) return UnauthorizedResponse(res, err);
-        if (!vendor.activated) {
-          sendOTP(vendor.email);
-          return ForbiddenResponse(
-            res,
-            null,
-            "user not activated please check email for otp"
-          );
-        }
-        const data = {
-          data: {
-            id: admin._id,
-            username: admin.username,
-            matoken: process.env.MSTOKEN,
-          },
-        };
-        if (!rememberMe)
-          data.exp = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7;
-        jwt.sign(
-          data,
-          process.env.SECRET_KEY || "secret",
-          { expiresIn: "1w" },
-          (err, token) => {
-            if (err) throw Error("Server Error");
-            var result = {
-              token: token,
-              expiresIn: rememberMe ? "Never" : "One week",
-            };
-            return OkResponse(res, result, "Log in sucessfull");
-          }
-        );
-      });
     } catch (error) {
-      console.log(error);
-      return ServerErrorResponse(res, error);
+      /* handle error */
+      console.log(err);
+      return ServerErrorResponse(res, err);
     }
   },
+  updateAdmin: async (req, res) => {
+    try {
+      const {
+        name,
+        username,
+        email,
+        mobileNo,
+
+        city,
+        address,
+        state,
+        pincode,
+      } = req.body;
+      const response = await Admin.updateOne(
+        { email: email },
+        {
+          name: name,
+          username: username,
+          email: email,
+          mobileNo: mobileNo,
+          city: city,
+          state: state,
+          pincode: pincode,
+          address: address,
+        }
+      );
+      if (response.modifiedCount > 0) {
+        OkResponse(res, response, "admin updated successfully");
+      } else {
+        FailedResponse(res, response, "admin could not updated successfully");
+      }
+    } catch (error) {
+      /* handle error */
+      console.log(err);
+      return ServerErrorResponse(res, err);
+    }
+  },
+  login: async (req, res) => {
+    try {
+      const { email, username, password } = req.body;
+      console.log(email, username);
+      const response = await Admin.findOne({
+        $or: [{ username: username }, { email: email }],
+      });
+      if (response) {
+        bcrypt.compare(password, response.password, (err, result) => {
+          if (result) {
+            jwt.sign(
+              { email, username, secretkey },
+              secretkey,
+              { expiresIn: "1w" },
+              (err, token) => {
+                if (err) {
+                  FailedResponse(res, err, "token could not created");
+                }
+                if (token) {
+                  OkResponse(res, token, "token created successfully");
+                }
+              }
+            );
+            // OkResponse(res, result, "password is correct");
+          } else {
+            FailedResponse(res, err, "password is incorrect");
+          }
+        });
+        // OkResponse(res, response, "find successfuly");
+      } else {
+        FailedResponse(res, response, "username and password are wrong");
+      }
+    } catch (error) {
+      /* handle error */
+      console.log(err);
+      return ServerErrorResponse(res, err);
+    }
+  },
+
+  // login: async (req, res) => {
+  //   try {
+  //     const { username, password, rememberMe } = req.body;
+  //     const admin = await Admin.findOne({
+  //       $or: [{ username: username }, { email: username }],
+  //     });
+  //     if (!admin) {
+  //       return UnauthorizedResponse(res, null, "username or password is wrong");
+  //     }
+  //     bcrypt.compare(password, admin.password, (err, result) => {
+  //       if (err || !result) return UnauthorizedResponse(res, err);
+  //       if (!vendor.activated) {
+  //         sendOTP(vendor.email);
+  //         return ForbiddenResponse(
+  //           res,
+  //           null,
+  //           "user not activated please check email for otp"
+  //         );
+  //       }
+  //       const data = {
+  //         data: {
+  //           id: admin._id,
+  //           username: admin.username,
+  //           matoken: process.env.MSTOKEN,
+  //         },
+  //       };
+  //       if (!rememberMe)
+  //         data.exp = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7;
+  //       jwt.sign(
+  //         data,
+  //         process.env.SECRET_KEY || "secret",
+  //         { expiresIn: "1w" },
+  //         (err, token) => {
+  //           if (err) throw Error("Server Error");
+  //           var result = {
+  //             token: token,
+  //             expiresIn: rememberMe ? "Never" : "One week",
+  //           };
+  //           return OkResponse(res, result, "Log in sucessfull");
+  //         }
+  //       );
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //     return ServerErrorResponse(res, error);
+  //   }
+  // },
 
   other: async function (req, res) {
     console.log("[URL]: \t", req.url);
