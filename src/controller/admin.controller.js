@@ -127,36 +127,37 @@ module.exports = {
   },
   login: async (req, res) => {
     try {
-      const { email, username, password } = req.body;
-      console.log(email, username);
-      const response = await Admin.findOne({
-        $or: [{ username: username }, { email: email }],
-      });
-      if (response) {
-        bcrypt.compare(password, response.password, (err, result) => {
-          if (result) {
-            jwt.sign(
-              { email, username, secretkey },
-              secretkey,
-              { expiresIn: "1w" },
-              (err, token) => {
-                if (err) {
-                  FailedResponse(res, err, "token could not created");
-                }
-                if (token) {
-                  OkResponse(res, token, "token created successfully");
-                }
-              }
-            );
-            // OkResponse(res, result, "password is correct");
-          } else {
-            FailedResponse(res, err, "password is incorrect");
-          }
-        });
-        // OkResponse(res, response, "find successfuly");
-      } else {
-        FailedResponse(res, response, "username and password are wrong");
-      }
+      // const { email, username, password } = req.body;
+      // console.log(email, username);
+      // const response = await Admin.findOne({
+      //   $or: [{ username: username }, { email: email }],
+      // });
+      // if (response) {
+      //   bcrypt.compare(password, response.password, (err, result) => {
+      //     if (result) {
+      //       jwt.sign(
+      //         { email, username, secretkey },
+      //         secretkey,
+      //         { expiresIn: "1w" },
+      //         (err, token) => {
+      //           if (err) {
+      //             FailedResponse(res, err, "token could not created");
+      //           }
+      //           if (token) {
+      //             OkResponse(res, token, "token created successfully");
+      //           }
+      //         }
+      //       );
+
+      //     } else {
+      //       FailedResponse(res, err, "password is incorrect");
+      //     }
+      //   });
+      //   // OkResponse(res, response, "find successfuly");
+      // } else {
+      //   FailedResponse(res, response, "username and password are wrong");
+      // }
+      OkResponse(res, { data: "huuuu" }, "hii response");
     } catch (error) {
       /* handle error */
       console.log(err);
