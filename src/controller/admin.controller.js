@@ -75,7 +75,7 @@ module.exports = {
   },
   getAdmin: async (req, res) => {
     try {
-      const { email } = req.body;
+      const { email } = req.decode;
       const response = await Admin.find({ email });
       if (response) {
         OkResponse(res, response, "admin get successfully");
