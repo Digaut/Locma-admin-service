@@ -5,7 +5,7 @@ const { isAuthenticated } = require("../middleware/checkauth");
 const router = require("express").Router();
 router.post("/login", adminController.login);
 router.post("/create", adminController.create);
-router.post("/getProfile", adminController.getAdmin);
+router.post("/getProfile", isAuthenticated, adminController.getAdmin);
 router.patch("/updateProfile", isAuthenticated, adminController.updateAdmin);
 
 const adminRouter = router;
