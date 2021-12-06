@@ -3,7 +3,6 @@ require("dotenv").config();
 
 const database =
   process.env.DATABASE_URL || "mongodb://127.0.0.1:27017/adminDB";
-
 const connect = () => {
   Mongoose.connect(
     database + "",
@@ -16,7 +15,7 @@ const connect = () => {
     function (err) {
       if (err) console.log(err);
       else {
-        console.log(`database is connected ${database}`);
+        console.log(`database is connected`);
       }
     }
   );

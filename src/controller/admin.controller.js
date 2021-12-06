@@ -136,15 +136,15 @@ module.exports = {
         bcrypt.compare(password, response.password, (err, result) => {
           if (result) {
             jwt.sign(
-              { email, username, secretkey },
-              secretkey,
-              { expiresIn: "1w" },
+              { email, username, id: response._id },
+              process.env.SECRET_KEY,
+              { expiresIn: "1d" },
               (err, token) => {
                 if (err) {
                   FailedResponse(res, err, "token could not created");
                 }
                 if (token) {
-                  OkResponse(res, token, "token created successfully");
+                  OkResponse(res, { token }, "token created successfully");
                 }
               }
             );
