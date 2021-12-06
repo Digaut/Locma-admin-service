@@ -18,7 +18,7 @@ const activeCities = mongoose.Schema({
   description: {
     type: String,
   },
-  pinCode: [
+  pincode: [
     {
       type: String,
       unique: true,
