@@ -91,13 +91,13 @@ module.exports = {
   },
   addPinCode: async (req, res) => {
     try {
-      const { city, pinCode } = req.body;
+      const { city, pincode } = req.body;
       const response = await ActiveCities.updateOne(
         {
           city: city,
         },
         {
-          $push: { pinCode: pinCode },
+          $push: { pincode: pincode },
         }
       );
       if (response.modifiedCount > 0) {
