@@ -6,6 +6,7 @@ const cmsRouter = require("./cmsRouter");
 const { OkResponse } = require("../helper/response");
 const userRouter = require("./userRouter");
 const adminRouter = require("./adminRouter");
+const postRouter = require("./postRouter");
 const router = require("express").Router();
 
 // router.post("/admin/login", admin.login);
@@ -28,5 +29,6 @@ router.use("/admin/user", userRouter);
 
 router.use("/admin/cms", cmsRouter);
 router.use("/admin", adminRouter);
+router.use("/admin/post", postRouter);
 
 module.exports = router;
