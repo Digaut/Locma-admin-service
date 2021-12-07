@@ -95,28 +95,14 @@ module.exports = {
       return ServerErrorResponse(res, error);
     }
   },
-  cmsPosts: async (req, res) => {
+  deletePost: async (req, res) => {
     try {
-      const response = await post.find({}, { postType: 1 });
-      let postType = [];
-      let postStats = [];
-
-      if (response.length > 0) {
-        for (let i = 0; i < response.length; i++) {
-          postType.push(response[i].postType);
-        }
-        uniqPostType = [...new Set(postType)];
-        for (let j = 0; j < uniqPostType.length; j++) {
-          const newres = await post.find({ postType: uniqPostType[j] });
-
-          postStats.push({
-            newres,
-          });
-        }
-
-        OkResponse(res, postStats, "data get  successfully");
+      const { _id, bannerName } = req.body;
+      const response = await post.findOneAndDelete({ _id: _id });
+      if (response) {
+        OkResponse(res, response, "data delted successfully");
       } else {
-        FailedResponse(res, {}, "data not found");
+        FailedResponse(res, response, "data could not deleted");
       }
     } catch (error) {
       console.log(error);
