@@ -60,8 +60,13 @@ module.exports = {
   getPost: async (req, res) => {
     try {
       const postType = req.query.postType;
-      const response = await post.find({ postType: postType });
-      OkResponse(res, response, "data found successfully");
+      if (postType === "all") {
+        const response = await post.find({});
+        OkResponse(res, response, "data found successfully");
+      } else {
+        const response = await post.find({ postType: postType });
+        OkResponse(res, response, "data found successfully");
+      }
     } catch (error) {
       console.log(error);
       return ServerErrorResponse(res, error);
@@ -71,7 +76,9 @@ module.exports = {
     try {
       const response = await post.find({}, { postType: 1 });
       let postType = [];
-      let postStats = [];
+      let postStats = [
+        { postType: "all", total: response.length, text: "All" },
+      ];
       if (response.length > 0) {
         for (let i = 0; i < response.length; i++) {
           postType.push(response[i].postType);
