@@ -95,4 +95,32 @@ module.exports = {
       return ServerErrorResponse(res, error);
     }
   },
+  cmsPosts: async (req, res) => {
+    try {
+      const response = await post.find({}, { postType: 1 });
+      let postType = [];
+      let postStats = [];
+
+      if (response.length > 0) {
+        for (let i = 0; i < response.length; i++) {
+          postType.push(response[i].postType);
+        }
+        uniqPostType = [...new Set(postType)];
+        for (let j = 0; j < uniqPostType.length; j++) {
+          const newres = await post.find({ postType: uniqPostType[j] });
+
+          postStats.push({
+            newres,
+          });
+        }
+
+        OkResponse(res, postStats, "data get  successfully");
+      } else {
+        FailedResponse(res, {}, "data not found");
+      }
+    } catch (error) {
+      console.log(error);
+      return ServerErrorResponse(res, error);
+    }
+  },
 };
