@@ -7,7 +7,7 @@ const ActiveCities = require("../model/activeCities");
 module.exports = {
   createCity: async (req, res) => {
     try {
-      const { city, status, longitude, latitude, description, pinCode } =
+      const { city, status, longitude, latitude, description, pincode } =
         req.body;
       let newCity = city.toLowerCase();
       console.log(req.body);
@@ -20,7 +20,7 @@ module.exports = {
           latitude: latitude,
         },
         description: description,
-        pinCode: pinCode,
+        pincode: pincode,
       });
       console.log(response, "gii response");
       response.save((error, result) => {
