@@ -7,7 +7,7 @@ module.exports = {
       name: Joi.string().required(),
       description: Joi.string(),
       rate: Joi.number(),
-      thumbnail: Joi.array().items(Joi.string()),
+      thumbnail: Joi.string(),
     });
     var { value, error } = schema.validate(data);
     if (error) return BadRequestResponse(res, error, "somethin went wrong");
