@@ -13,7 +13,10 @@ const categorySchema = new Schema(
     rate: {
       type: Number,
     },
-    thumbnail: [{ type: String }],
+    thumbnail: {
+      require: true,
+      type: String,
+    },
   },
   { timestamps: true }
 );
