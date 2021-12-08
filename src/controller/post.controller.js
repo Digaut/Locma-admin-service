@@ -109,7 +109,7 @@ module.exports = {
   },
   deletePost: async (req, res) => {
     try {
-      const { _id, bannerName } = req.body;
+      const { _id, postName } = req.body;
       const response = await post.findOneAndDelete({ _id: _id });
       if (response) {
         OkResponse(res, response, "data delted successfully");
