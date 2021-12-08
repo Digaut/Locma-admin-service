@@ -17,7 +17,7 @@ const subCategorySchema = new Schema(
       type: String,
       required: true,
     },
-    thumbnail: [{ type: String }],
+    thumbnail: { type: String, required: true },
   },
   { timestamps: true }
 );
