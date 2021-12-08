@@ -5,7 +5,7 @@ const Post = new mongoose.Schema(
       required: true,
       type: String,
     },
-    bannerName: {
+    postName: {
       required: true,
       type: String,
       unique: true,
