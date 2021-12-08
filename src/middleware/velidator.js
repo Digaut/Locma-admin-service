@@ -10,7 +10,7 @@ module.exports = {
       thumbnail: Joi.array().items(Joi.string()),
     });
     var { value, error } = schema.validate(data);
-    if (error) return BadRequestResponse(res, error, MESSAGE);
+    if (error) return BadRequestResponse(res, error, "somethin went wrong");
     req.body = value;
     next();
   },
