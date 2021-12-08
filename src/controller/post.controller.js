@@ -62,10 +62,10 @@ module.exports = {
       const postType = req.query.postType;
       if (postType === "all") {
         const response = await post.find({});
-        if (response) {
+        if (response.length > 0) {
           OkResponse(res, response, "data found successfully");
         } else {
-          FailedResponse(res, null, "data not found");
+          OkResponse(res, [], "data found successfully");
         }
       } else {
         const response = await post.find({ postType: postType });
@@ -100,11 +100,8 @@ module.exports = {
             text: uniqPostType[j],
           });
         }
-
-        OkResponse(res, postStats, "data get  successfully");
-      } else {
-        FailedResponse(res, [], "data not found");
       }
+      OkResponse(res, postStats, "data get  successfully");
     } catch (error) {
       console.log(error);
       return ServerErrorResponse(res, error);
