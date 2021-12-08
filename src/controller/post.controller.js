@@ -43,14 +43,14 @@ module.exports = {
       ]);
       let pagination = pagenate(response[0].max[0].total, page, limit);
 
-      if (response) {
+      if (response.length > 0) {
         OkResponse(
           res,
           { posts: response[0].posts, pagination },
           "data get successfully"
         );
       } else {
-        FailedResponse(res, response, "data not found");
+        FailedResponse(res, null, "data not found");
       }
     } catch (error) {
       console.log(error);
@@ -62,10 +62,18 @@ module.exports = {
       const postType = req.query.postType;
       if (postType === "all") {
         const response = await post.find({});
-        OkResponse(res, response, "data found successfully");
+        if (response) {
+          OkResponse(res, response, "data found successfully");
+        } else {
+          FailedResponse(res, null, "data not found");
+        }
       } else {
         const response = await post.find({ postType: postType });
-        OkResponse(res, response, "data found successfully");
+        if (response) {
+          OkResponse(res, response, "data found successfully");
+        } else {
+          FailedResponse(res, null, "data not found");
+        }
       }
     } catch (error) {
       console.log(error);
@@ -95,7 +103,7 @@ module.exports = {
 
         OkResponse(res, postStats, "data get  successfully");
       } else {
-        FailedResponse(res, {}, "data not found");
+        FailedResponse(res, [], "data not found");
       }
     } catch (error) {
       console.log(error);
@@ -109,7 +117,7 @@ module.exports = {
       if (response) {
         OkResponse(res, response, "data delted successfully");
       } else {
-        FailedResponse(res, response, "data could not deleted");
+        FailedResponse(res, {}, "data could not deleted");
       }
     } catch (error) {
       console.log(error);
