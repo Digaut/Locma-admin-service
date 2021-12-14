@@ -23,7 +23,10 @@ const {
 const homeController = require("../controller/cms.controller");
 const { getBySubCategory } = require("../controller/subcategory.controller");
 
-const { CategoryValidator } = require("../middleware/velidator");
+const {
+  CategoryValidator,
+  SubCategoryValidator,
+} = require("../middleware/velidator");
 router.post("/home", homeController.create);
 router.get("/home", homeController.get);
 router.post("/offers", homeController.createOffers);
@@ -31,7 +34,7 @@ router.get("/offers", homeController.getOffers);
 router.post("/offers/get-products", homeController.getOfferDetails);
 
 router.post("/category/create", CategoryValidator, createCategory);
-router.post("/subcategory/create", createSubCategory);
+router.post("/subcategory/create", SubCategoryValidator, createSubCategory);
 router.post("/subcategory/getByCategory", getBySubCategoryCategory);
 router.get("/category/all", getCategories);
 router.get("/subcategory/getAll", getAllSubCategory);
