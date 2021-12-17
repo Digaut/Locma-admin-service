@@ -59,16 +59,17 @@ module.exports = {
   },
   getPost: async (req, res) => {
     try {
-      const postType = req.query.postType;
+      // const postType = req.query.postType;
+      const { postType, city } = req.body;
       if (postType === "all") {
-        const response = await post.find({});
+        const response = await post.find({ city: city });
         if (response.length > 0) {
           OkResponse(res, response, "data found successfully");
         } else {
           OkResponse(res, [], "data found successfully");
         }
       } else {
-        const response = await post.find({ postType: postType });
+        const response = await post.find({ postType: postType, city: city });
         if (response) {
           OkResponse(res, response, "data found successfully");
         } else {
