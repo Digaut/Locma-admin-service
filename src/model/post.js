@@ -48,6 +48,7 @@ const Post = new mongoose.Schema(
     postType: {
       type: String,
       required: true,
+      lowercase: true,
     },
   },
   {
