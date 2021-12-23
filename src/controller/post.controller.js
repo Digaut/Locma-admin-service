@@ -70,7 +70,9 @@ module.exports = {
           OkResponse(res, [], "data found successfully");
         }
       } else {
-        const response = await post.find({ postType: postType, city: city });
+        const response = await post.find({
+          $and: [{ postType: postType }, { city: city }],
+        });
         if (response.length > 0) {
           OkResponse(res, response, "data found successfully");
         } else {
