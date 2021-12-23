@@ -61,6 +61,7 @@ module.exports = {
     try {
       // const postType = req.query.postType;
       const { postType, city } = req.body;
+      console.log("hiiiiiiiiii");
       if (postType === "all") {
         const response = await post.find({ city: city });
         if (response.length > 0) {
