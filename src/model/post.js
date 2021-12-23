@@ -9,6 +9,7 @@ const Post = new mongoose.Schema(
       required: true,
       type: String,
       unique: true,
+      lowercase: true,
     },
     title: {
       required: true,
@@ -42,6 +43,7 @@ const Post = new mongoose.Schema(
     city: {
       type: String,
       required: true,
+      lowercase: true,
     },
     postType: {
       type: String,
