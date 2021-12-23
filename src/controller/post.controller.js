@@ -64,6 +64,7 @@ module.exports = {
       console.log("hiiiiiiiiii");
       if (postType === "all") {
         const response = await post.find({ city: city });
+        console.log(response, "if response");
         if (response.length > 0) {
           OkResponse(res, response, "data found successfully");
         } else {
@@ -73,6 +74,7 @@ module.exports = {
         const response = await post.find({
           $and: [{ postType: postType }, { city: city }],
         });
+        console.log(response, "else response");
         if (response.length > 0) {
           OkResponse(res, response, "data found successfully");
         } else {
