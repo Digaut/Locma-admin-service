@@ -71,7 +71,7 @@ module.exports = {
         }
       } else {
         const response = await post.find({ postType: postType, city: city });
-        if (response) {
+        if (response.length > 0) {
           OkResponse(res, response, "data found successfully");
         } else {
           FailedResponse(res, null, "data not found");
