@@ -58,6 +58,7 @@ module.exports = {
     }
   },
   getPost: async (req, res) => {
+    console.log("hiiiiiiiiii");
     try {
       // const postType = req.query.postType;
       const { postType, city } = req.body;

@@ -48,10 +48,10 @@ module.exports = {
   getActiveCityForUser: async (req, res) => {
     try {
       const response = await ActiveCities.find({});
-      if (response.status) {
+      if (response.length > 0) {
         OkResponse(res, response, "data found");
       } else {
-        FailedResponse(res, response, "data not found");
+        OkResponse(res, [], "data not found");
       }
     } catch (error) {
       /* handle error */
