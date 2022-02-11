@@ -50,6 +50,11 @@ const Post = new mongoose.Schema(
       required: true,
       lowercase: true,
     },
+    status: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   {
     timestamps: true,
