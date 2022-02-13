@@ -10,7 +10,7 @@ module.exports = {
     try {
       const { variableName, value, description } = req.body;
       const response = new globalVariables({
-        variableName: variableName.toUpperCase().remove(" ", ""),
+        variableName: variableName.toUpperCase().replace(" ", ""),
         value,
         description,
       });
