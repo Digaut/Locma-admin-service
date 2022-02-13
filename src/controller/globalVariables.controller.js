@@ -42,15 +42,14 @@ module.exports = {
   },
   searchGlobalVariableName: async (req, res) => {
     try {
-      const { variableName } = req.body;
-      const response = await globalVariables
-        .find(
-          {
-            variableName: { $regex: variableName.toUpperCase().trim() },
-          },
-          { _id: 0 }
-        )
-        .select("variableName");
+      const searchKey = req.body.searchKey ? req.body.searchKey : "";
+      const response = await globalVariables.find(
+        {
+          variableName: { $regex: searchKey.toUpperCase().trim() },
+        },
+        { _id: 0 }
+      );
+
       if (response) {
         OkResponse(res, response, "data fetched successfully");
       } else {
