@@ -61,7 +61,7 @@ router.post("/create/globalVariable", createGlobalVariables);
 router.get("/get/globalVariable", getGlobalVariable);
 router.patch("/update/globalVariable", updateGlobalVariable);
 router.post("/delete/globalVariable", deleteGlobalVariable);
-router.post("/search/globalVariableName", searchGlobalVariableName);
+router.post("/search/globalVariable", searchGlobalVariableName);
 
 const cmsRouter = router;
 module.exports = cmsRouter;
