@@ -8,8 +8,12 @@ const globalVariables = require("../model/globalVariables");
 module.exports = {
   createGlobalVariables: (req, res) => {
     try {
-      const { variableName, value } = req.body;
-      const response = new globalVariables({ variableName, value });
+      const { variableName, value, description } = req.body;
+      const response = new globalVariables({
+        variableName,
+        value,
+        description,
+      });
       response.save((err, result) => {
         if (err) {
           FailedResponse(res, "response could not saved", err);
@@ -37,12 +41,13 @@ module.exports = {
     }
   },
   updateGlobalVariable: async (req, res) => {
-    const { variableName, value } = req.body;
+    const { variableName, value, description } = req.body;
     try {
       const response = await globalVariables.updateOne(
         { variableName: variableName },
         {
           value: value,
+          description: description,
         }
       );
       if (response.modifiedCount > 0) {
