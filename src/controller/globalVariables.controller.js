@@ -16,10 +16,10 @@ module.exports = {
       });
       response.save((err, result) => {
         if (err) {
-          FailedResponse(res, "response could not saved", err);
+          FailedResponse(res, err, "response could not saved");
         }
         if (result) {
-          OkResponse(res, "response saved successfully", result);
+          OkResponse(res, result, "response saved successfully");
         }
       });
     } catch (error) {
@@ -31,9 +31,9 @@ module.exports = {
     try {
       const response = await globalVariables.find();
       if (response) {
-        OkResponse(res, "data fetched successfully", response);
+        OkResponse(res, response, "data fetched successfully");
       } else {
-        FailedResponse(res, "data could not fetched", response);
+        FailedResponse(res, response, "data could not fetched");
       }
     } catch (error) {
       console.log(error);
@@ -43,13 +43,18 @@ module.exports = {
   searchGlobalVariableName: async (req, res) => {
     try {
       const { variableName } = req.body;
-      const response = await globalVariables.find({
-        variableName: { $regex: variableName.toUpperCase().trim() },
-      });
+      const response = await globalVariables
+        .find(
+          {
+            variableName: { $regex: variableName.toUpperCase().trim() },
+          },
+          { _id: 0 }
+        )
+        .select("variableName");
       if (response) {
-        OkResponse(res, "data fetched successfully", response);
+        OkResponse(res, response, "data fetched successfully");
       } else {
-        FailedResponse(res, "data could not fetched", response);
+        FailedResponse(res, response, "data could not fetched");
       }
     } catch (error) {
       console.log(error);
@@ -67,9 +72,9 @@ module.exports = {
         }
       );
       if (response.modifiedCount > 0) {
-        OkResponse(res, "deta updated successfully", response);
+        OkResponse(res, response, "deta updated successfully");
       } else {
-        FailedResponse(res, "data could not updated successfully", response);
+        FailedResponse(res, response, "data could not updated successfully");
       }
     } catch (error) {
       console.log(error);
@@ -84,9 +89,13 @@ module.exports = {
         variableName: variableName,
       });
       if (response.deletedCount > 0) {
-        OkResponse(res, "variable name deleted successfully", response);
+        OkResponse(res, response, "variable name deleted successfully");
       } else {
-        FailedResponse(res, "variableName could not deleted successfully");
+        FailedResponse(
+          res,
+          response,
+          "variableName could not deleted successfully"
+        );
       }
     } catch (error) {
       console.log(error);
