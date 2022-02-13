@@ -59,7 +59,7 @@ router.post("/searchCity", searchCity);
 router.post("/create/globalVariable", createGlobalVariables);
 router.get("/get/globalVariable", getGlobalVariable);
 router.patch("/update/globalVariable", updateGlobalVariable);
-router.delete("/delete/globalVariable", deleteGlobalVariable);
+router.post("/delete/globalVariable", deleteGlobalVariable);
 
 const cmsRouter = router;
 module.exports = cmsRouter;
