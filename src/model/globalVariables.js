@@ -5,6 +5,7 @@ const globalVariables = new mongoose.Schema(
       required: true,
       type: String,
       unique: true,
+      uppercase: true,
     },
     value: {
       required: true,
