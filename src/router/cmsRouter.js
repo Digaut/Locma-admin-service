@@ -21,6 +21,12 @@ const {
   searchCity,
 } = require("../controller/cms.controller");
 const homeController = require("../controller/cms.controller");
+const {
+  createGlobalVariables,
+  getGlobalVariable,
+  updateGlobalVariable,
+  deleteGlobalVariable,
+} = require("../controller/globalVariables.controller");
 const { getBySubCategory } = require("../controller/subcategory.controller");
 
 const {
@@ -50,6 +56,10 @@ router.patch("/update/activeCity", updateCity);
 router.post("/delete/activeCity", deleteCity);
 router.patch("/add/newPinCode", addPinCode);
 router.post("/searchCity", searchCity);
+router.post("/create/globalVariable", createGlobalVariables);
+router.get("/get/globalVariable", getGlobalVariable);
+router.patch("/update/globalVariable", updateGlobalVariable);
+router.delete("/delete/globalVariable", deleteGlobalVariable);
 
 const cmsRouter = router;
 module.exports = cmsRouter;
