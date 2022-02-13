@@ -26,6 +26,7 @@ const {
   getGlobalVariable,
   updateGlobalVariable,
   deleteGlobalVariable,
+  searchGlobalVariableName,
 } = require("../controller/globalVariables.controller");
 const { getBySubCategory } = require("../controller/subcategory.controller");
 
@@ -60,6 +61,7 @@ router.post("/create/globalVariable", createGlobalVariables);
 router.get("/get/globalVariable", getGlobalVariable);
 router.patch("/update/globalVariable", updateGlobalVariable);
 router.post("/delete/globalVariable", deleteGlobalVariable);
+router.post("/search/globalVariableName", searchGlobalVariableName);
 
 const cmsRouter = router;
 module.exports = cmsRouter;

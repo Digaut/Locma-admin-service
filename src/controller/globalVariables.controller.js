@@ -40,6 +40,22 @@ module.exports = {
       return ServerErrorResponse(res, error);
     }
   },
+  searchGlobalVariableName: async (req, res) => {
+    try {
+      const { variableName } = req.body;
+      const response = await globalVariables.find({
+        variableName: { $regex: variableName.toUpperCase().trim() },
+      });
+      if (response) {
+        OkResponse(res, "data fetched successfully", response);
+      } else {
+        FailedResponse(res, "data could not fetched", response);
+      }
+    } catch (error) {
+      console.log(error);
+      return ServerErrorResponse(res, error);
+    }
+  },
   updateGlobalVariable: async (req, res) => {
     const { variableName, value, description } = req.body;
     try {
