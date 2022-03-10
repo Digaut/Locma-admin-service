@@ -28,6 +28,7 @@ module.exports = {
           message: acceptingMessage,
         },
       });
+      console.log("checking create response", response);
       if (response) {
         response.save((err, result) => {
           if (err) {
