@@ -31,8 +31,10 @@ module.exports = {
       if (response) {
         response.save((err, result) => {
           if (err) {
+            console.log(err);
             FailedResponse(res, err, "data could not saved");
           } else {
+            console.log(result);
             OkResponse(res, result, "data saved successfully");
           }
         });
@@ -78,8 +80,10 @@ module.exports = {
         }
       );
       if (response.modifiedCount > 0) {
+        console.log(response);
         OkResponse(res, response, "settings data updated successfully");
       } else {
+        console.log(response);
         FailedResponse(
           res,
           response,
@@ -87,6 +91,7 @@ module.exports = {
         );
       }
     } catch (error) {
+      console.log(error);
       ServerErrorResponse(res, error, "something went wrong");
     }
   },
