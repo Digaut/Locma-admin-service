@@ -17,6 +17,7 @@ module.exports = {
         isAccepting,
         acceptingMessage,
       } = req.body;
+
       const response = new settings({
         city: city.toLowerCase(),
         deliveryTiming: {
@@ -25,7 +26,7 @@ module.exports = {
           closingMessage: closingMessage,
         },
         acceptingOrders: {
-          isAccepting: isAccepting,
+          isAccepting: isAccepting === "True" ? true : false,
           message: acceptingMessage,
         },
       });
