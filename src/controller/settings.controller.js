@@ -44,7 +44,7 @@ module.exports = {
       }
       console.log(req.body);
     } catch (error) {
-      ServerErrorResponse(res, error, "something went wrong");
+      ServerErrorResponse(res, error, "something went wrong server");
     }
   },
   getSettings: async (req, res) => {
