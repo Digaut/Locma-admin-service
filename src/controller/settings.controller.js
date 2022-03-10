@@ -8,6 +8,7 @@ const settings = require("../model/settings");
 module.exports = {
   createSettings: async (req, res) => {
     try {
+      console.log(req.body, "checking console");
       const {
         city,
         openingTime,
