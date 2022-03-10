@@ -25,7 +25,7 @@ module.exports = {
           closingMessage: closingMessage,
         },
         acceptingOrders: {
-          isAccepting: Boolean.parseBoolean(isAccepting),
+          isAccepting: isAccepting,
           message: acceptingMessage,
         },
       });
