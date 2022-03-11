@@ -51,8 +51,7 @@ module.exports = {
   },
   getSettings: async (req, res) => {
     try {
-      const { city } = req.body;
-      const response = await settings.find({});
+      const response = await settings.findOne({ city: req.decode.city });
       OkResponse(res, response, "data fetched successfully");
     } catch (error) {
       ServerErrorResponse(res, error, "something went wrong");

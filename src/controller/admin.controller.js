@@ -136,7 +136,7 @@ module.exports = {
         bcrypt.compare(password, response.password, (err, result) => {
           if (result) {
             jwt.sign(
-              { email, username, id: response._id },
+              { email, username, id: response._id, city: response.city },
               process.env.SECRET_KEY,
               { expiresIn: "1d" },
               (err, token) => {
