@@ -51,6 +51,7 @@ module.exports = {
   },
   getSettings: async (req, res) => {
     try {
+      console.log(req.decode, "checking decode method");
       const response = await settings.findOne({ city: req.decode.city });
       OkResponse(res, response, "data fetched successfully");
     } catch (error) {
