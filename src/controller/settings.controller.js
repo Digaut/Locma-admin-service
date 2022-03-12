@@ -82,7 +82,7 @@ module.exports = {
             closingMessage: closingMessage,
           },
           acceptingOrders: {
-            isAccepting: isAccepting,
+            isAccepting: isAccepting === "True" ? true : false,
             message: acceptingMessage,
           },
         }
