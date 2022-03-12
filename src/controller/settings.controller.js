@@ -73,6 +73,7 @@ module.exports = {
         isAccepting,
         acceptingMessage,
       } = req.body;
+      console.log(req.body, "checkin upadte");
       const response = await settings.updateOne(
         { city: city.toLowerCase() },
         {
