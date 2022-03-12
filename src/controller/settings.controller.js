@@ -19,7 +19,7 @@ module.exports = {
       } = req.body;
 
       const response = new settings({
-        city: city.toLowerCase(),
+        city: req.decode.city.toLowerCase(),
         deliveryTiming: {
           openingTime: openingTime,
           closingTime: closingTime,

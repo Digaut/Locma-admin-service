@@ -9,26 +9,22 @@ const settings = new mongoose.Schema(
     deliveryTiming: {
       openingTime: {
         type: String,
-        required: true,
       },
       closingTime: {
         type: String,
-        required: true,
       },
       closingMessage: {
         type: String,
-        required: true,
       },
     },
     acceptingOrders: {
       isAccepting: {
         type: Boolean,
-        required: true,
+
         default: true,
       },
       message: {
         type: String,
-        required: true,
       },
     },
   },
