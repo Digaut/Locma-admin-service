@@ -26,7 +26,12 @@ module.exports = {
           closingMessage: closingMessage,
         },
         acceptingOrders: {
-          isAccepting: isAccepting === "True" ? true : false,
+          isAccepting:
+            isAccepting === "True"
+              ? true
+              : isAccepting === "False"
+              ? false
+              : true,
           message: acceptingMessage,
         },
       });
