@@ -20,8 +20,6 @@ const settings = new mongoose.Schema(
     acceptingOrders: {
       isAccepting: {
         type: Boolean,
-
-        default: true,
       },
       message: {
         type: String,
