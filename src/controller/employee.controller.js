@@ -14,6 +14,8 @@ module.exports = {
         mobile,
         email,
         image,
+        gender,
+        isActive,
 
         permanentHouseNo,
         permanentLandmark,
@@ -57,6 +59,8 @@ module.exports = {
         mobile: mobile,
         email: email,
         image: image,
+        gender: gender,
+        isActive: isActive,
         city: req.decode.city,
         employeeId: city + (1000 + empCount),
         address: {
@@ -150,6 +154,8 @@ module.exports = {
         email,
         image,
         employeeId,
+        gender,
+        isActive,
 
         permanentHouseNo,
         permanentLandmark,
@@ -192,6 +198,8 @@ module.exports = {
           mobile: mobile,
           email: email,
           image: image,
+          gender: gender,
+          isActive: isActive,
           address: {
             permanent: {
               houseNo: permanentHouseNo,

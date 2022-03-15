@@ -23,6 +23,14 @@ const employee = new mongoose.Schema(
       type: String,
       required: true,
     },
+    gender: {
+      type: String,
+      required: true,
+    },
+    isActive: {
+      type: String,
+      required: true,
+    },
     employeeId: {
       type: String,
       required: true,
