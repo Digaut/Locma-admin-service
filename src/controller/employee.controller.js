@@ -249,6 +249,7 @@ module.exports = {
           },
         }
       );
+      console.log(response, req.body, "checking testing");
       if (response.modifiedCount > 0) {
         OkResponse(res, response, "data updated successfully");
       } else {
