@@ -1,3 +1,4 @@
+const { Mongoose } = require("mongoose");
 const { pagenate } = require("../helper/helpers");
 const { FailedResponse, OkResponse } = require("../helper/response");
 const post = require("../model/post");
@@ -117,7 +118,9 @@ module.exports = {
   deletePost: async (req, res) => {
     try {
       const { _id, postName } = req.body;
-      const response = await post.findOneAndDelete({ _id: _id });
+      const response = await post.findOneAndDelete({
+        _id: Mongoose.Types.ObjectId(_id),
+      });
       console.log(response, "this is server response");
       if (response) {
         OkResponse(res, response, "data delted successfully");
