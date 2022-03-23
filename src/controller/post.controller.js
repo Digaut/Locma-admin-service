@@ -1,4 +1,4 @@
-const { Mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 const { pagenate } = require("../helper/helpers");
 const {
   FailedResponse,
@@ -123,7 +123,7 @@ module.exports = {
     try {
       const { _id, postName } = req.body;
       const response = await post.findOneAndDelete({
-        _id: Mongoose.Types.ObjectId(_id),
+        _id: mongoose.Types.ObjectId(_id),
       });
       console.log(response, "this is server response");
       if (response) {
