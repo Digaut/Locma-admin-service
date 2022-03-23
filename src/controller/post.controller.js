@@ -125,7 +125,7 @@ module.exports = {
       const response = await post.findOneAndDelete({
         _id: mongoose.Types.ObjectId(_id),
       });
-      console.log(response, "this is server response");
+      console.log(response, _id, "this is server response");
       if (response) {
         OkResponse(res, response, "data delted successfully");
       } else {
