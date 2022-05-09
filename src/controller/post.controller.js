@@ -91,8 +91,12 @@ module.exports = {
           },
         },
       ]);
-      var category = await Category.find();
-      OkResponse(res, { homeContent, category }, "hii response is there");
+      var categories = await Category.find();
+      OkResponse(
+        res,
+        { homeContent, categories },
+        "response generated sucessfully"
+      );
     } catch (error) {
       console.log(error);
       return ServerErrorResponse(res, error);
