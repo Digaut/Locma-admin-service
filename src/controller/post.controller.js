@@ -66,7 +66,7 @@ module.exports = {
   getAllPostTypeWise: async (req, res) => {
     try {
       const { city } = req.body;
-      const response = await post.aggregate([
+      const homeContent = await post.aggregate([
         {
           $match: {
             $expr: {
@@ -92,7 +92,7 @@ module.exports = {
         },
       ]);
       var category = await Category.find();
-      OkResponse(res, { response, category }, "hii response is there");
+      OkResponse(res, { homeContent, category }, "hii response is there");
     } catch (error) {
       console.log(error);
       return ServerErrorResponse(res, error);
