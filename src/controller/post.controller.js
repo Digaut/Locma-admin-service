@@ -5,6 +5,7 @@ const {
   OkResponse,
   ServerErrorResponse,
 } = require("../helper/response");
+const Category = require("../model/Category");
 const post = require("../model/post");
 
 module.exports = {
@@ -57,6 +58,41 @@ module.exports = {
       } else {
         FailedResponse(res, null, "data not found");
       }
+    } catch (error) {
+      console.log(error);
+      return ServerErrorResponse(res, error);
+    }
+  },
+  getAllPostTypeWise: async (req, res) => {
+    try {
+      const { city } = req.body;
+      const response = await post.aggregate([
+        {
+          $match: {
+            $expr: {
+              $eq: ["$city", city],
+            },
+          },
+        },
+        {
+          $group: {
+            _id: "$postType",
+            posts: {
+              $addToSet: "$$ROOT",
+            },
+          },
+        },
+        {
+          $project: {
+            postType: "$_id",
+            posts: 1,
+
+            _id: 0,
+          },
+        },
+      ]);
+      var category = await Category.find();
+      OkResponse(res, { response, category }, "hii response is there");
     } catch (error) {
       console.log(error);
       return ServerErrorResponse(res, error);
