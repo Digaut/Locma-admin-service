@@ -51,7 +51,6 @@ module.exports = {
             category: Joi.string().allow(null),
             subCategory: Joi.string().allow(null),
             _id: Joi.string().required(),
-            postName: Joi.string().required(),
             query: Joi.string().required(),
             clickAction: Joi.string().required(),
             image: Joi.string().required(),
